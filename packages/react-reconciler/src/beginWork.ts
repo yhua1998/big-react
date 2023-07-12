@@ -2,6 +2,7 @@ import { ReactElementType } from "shared/ReactTypes";
 import { FiberNode } from "./fiber";
 import { UpdateQuete, processUpdateQueue } from "./updateQuete";
 import { HostComponent, HostRoot, HostText } from "./workTags";
+import { mountChildFibers, reconcilerChildFibers } from "./childFibers";
 
 export const beginWork = (wip: FiberNode): FiberNode | null => {
   // 递归/递：比较返回子Fiber
@@ -39,8 +40,14 @@ function updateHostComponent(wip: FiberNode) {
   return wip.child;
 }
 
-
-function reconcilerChildren(wip:FiberNode, children?:ReactElementType){
-  const curent = wip.alternate
-  reconcilerChildFibers(wip,curent?.child,children)
+function reconcilerChildren(wip: FiberNode, children?: ReactElementType) {
+  const current = wip.alternate;
+  if (current !== null) {
+    // update
+    wip.child = reconcilerChildFibers(wip, current?.child, children);
+  } else {
+    // mount
+    wip.child = mountChildFibers(wip, null, children);
+  }
+  return wip.child;
 }
