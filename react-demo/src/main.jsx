@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 // 定义函数组件
 function FC({ children }) {
-  return <div>{children}</div>;
+  const [num, setNum] = useState(1)
+  return <div>{num}</div>;
 }
 
 const jsx = (

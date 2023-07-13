@@ -2,7 +2,6 @@ import { Props, Key, Ref, ReactElementType } from "shared/ReactTypes";
 import { FunctionComponent, HostComponent, WorkTag } from "./workTags";
 import { Flags, NoFlags } from "./fiberFlags";
 import { Container } from "hostConfig";
-import { UpdateQuete } from "./updateQuete";
 
 export class FiberNode {
   tag: WorkTag;
@@ -67,7 +66,7 @@ export class FiberRootNode {
 
 export const createWorkInProcess = (
   current: FiberNode,
-  pendingProps: Props  // 默认{}
+  pendingProps: Props // 默认{}
 ): FiberNode => {
   // 双缓冲
   let wip = current.alternate;
@@ -83,7 +82,7 @@ export const createWorkInProcess = (
     // 更新阶段
     wip.pendingProps = pendingProps;
     wip.flags = NoFlags;
-    wip.subtreeFlags = NoFlags
+    wip.subtreeFlags = NoFlags;
   }
   wip.type = current.type;
   wip.updateQueue = current.updateQueue;
