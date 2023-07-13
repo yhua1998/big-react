@@ -60,7 +60,7 @@ function getHostParent(fiber: FiberNode): Container | null {
     }
     parent = parent.return;
   }
-  if (__DEV__) {
+  if (__DEV__ && parent) {
     console.warn("未找到host parent");
   }
   return null;

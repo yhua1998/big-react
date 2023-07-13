@@ -5,7 +5,12 @@ import {
   createTextInstance,
 } from "hostConfig";
 import { FiberNode } from "./fiber";
-import { HostComponent, HostRoot, HostText } from "./workTags";
+import {
+  HostComponent,
+  FunctionComponent,
+  HostRoot,
+  HostText,
+} from "./workTags";
 import { NoFlags } from "./fiberFlags";
 
 export const completeWork = (wip: FiberNode) => {
@@ -34,6 +39,9 @@ export const completeWork = (wip: FiberNode) => {
     case HostRoot:
       bubbleProperties(wip);
       return null;
+    case FunctionComponent:
+      bubbleProperties(wip);
+      return null;
     default:
       if (__DEV__) {
         console.warn("未处理的completeWork", wip);
@@ -49,6 +57,7 @@ function appendAllChildren(parent: Container, wip: FiberNode) {
     if (node?.tag === HostComponent || node?.tag === HostText) {
       appendInitialChild(parent, node.stateNode);
     } else if (node.child !== null) {
+      // 例如FunctionComponent
       node.child.return = node;
       node = node.child;
       continue;

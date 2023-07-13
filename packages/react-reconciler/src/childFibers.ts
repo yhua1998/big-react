@@ -5,7 +5,7 @@ import { HostText } from "./workTags";
 import { Placement } from "./fiberFlags";
 
 function ChildReconciler(shouldTrackEffect: boolean) {
-  function reconcilerSinglleElement(
+  function reconcilerSingleElement(
     returnFiber: FiberNode,
     currentFiber: FiberNode | null,
     element: ReactElementType
@@ -41,11 +41,11 @@ function ChildReconciler(shouldTrackEffect: boolean) {
       switch (newChild.$$typeof) {
         case REACT_ELEMENT_TYPE:
           return placeSingleChild(
-            reconcilerSinglleElement(returnFiber, currentFiber, newChild)
+            reconcilerSingleElement(returnFiber, currentFiber, newChild)
           );
         default:
           if (__DEV__) {
-            console.log("为实现的reconciler类型", newChild);
+            console.log("未实现的reconciler类型", newChild);
           }
           break;
       }

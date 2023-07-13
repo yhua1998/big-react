@@ -67,10 +67,12 @@ export class FiberRootNode {
 
 export const createWorkInProcess = (
   current: FiberNode,
-  pendingProps: Props
+  pendingProps: Props  // 默认{}
 ): FiberNode => {
+  // 双缓冲
   let wip = current.alternate;
   if (wip === null) {
+    // 初次渲染：挂载|首屏加载
     wip = new FiberNode(current.tag, pendingProps, current.key);
     wip.type = current.type;
     wip.stateNode = current.stateNode;
@@ -78,6 +80,7 @@ export const createWorkInProcess = (
     wip.alternate = current;
     current.alternate = wip;
   } else {
+    // 更新阶段
     wip.pendingProps = pendingProps;
     wip.flags = NoFlags;
     wip.subtreeFlags = NoFlags

@@ -11,7 +11,9 @@ import { ReactElementType } from "shared/ReactTypes";
 import { scheduleUpdateOnFiber } from "./workLoop";
 
 export function createContainer(container: Container) {
+  // 对与浏览器环境，为真实dom节点
   const hostRootFiber = new FiberNode(HostRoot, {}, null);
+  // 创建根Fiber: FiberRootNode
   const root = new FiberRootNode(container, hostRootFiber);
   hostRootFiber.updateQueue = createUpdateQuete();
   return root;
@@ -27,6 +29,6 @@ export function updateContainer(
     hostRootFiber.updateQueue as UpdateQuete<ReactElementType | null>,
     update
   );
-  scheduleUpdateOnFiber(hostRootFiber)
+  scheduleUpdateOnFiber(hostRootFiber);
   return element;
 }
